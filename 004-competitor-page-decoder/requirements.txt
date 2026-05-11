@@ -1,0 +1,4 @@
+anthropic>=0.96.0
+beautifulsoup4>=4.14.3
+python-dotenv>=1.2.2
+requests>=2.33.1

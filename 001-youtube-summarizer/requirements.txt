@@ -1,0 +1,4 @@
+anthropic>=0.96.0
+python-dotenv>=1.2.2
+requests>=2.33.1
+youtube-transcript-api>=1.2.4
