@@ -41,7 +41,7 @@ The ten experiments move through four stages:
 Clone the repo:
 
 ```bash
-git clone https://github.com/varshaa-pallaath/marketer-that-ships.git
+git clone https://github.com/varshp/marketer-that-ships.git
 cd marketer-that-ships
 ```
 
