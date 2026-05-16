@@ -7,3 +7,5 @@ venv/
 .venv/
 node_modules/
 outputs/
+output/
+.claude/

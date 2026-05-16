@@ -209,11 +209,10 @@ def mine_reviews(url: str) -> str:
 
 def main():
     if len(sys.argv) < 2:
-        url = "https://www.g2.com/products/notion/reviews"
-        print(f"No URL provided. Using test URL: {url}")
-        print("Usage: python g2_miner.py <g2-reviews-url>\n")
-    else:
-        url = sys.argv[1]
+        print("Usage: python g2_miner.py <g2-reviews-url>")
+        print("Example: python g2_miner.py https://www.g2.com/products/acme/reviews")
+        sys.exit(1)
+    url = sys.argv[1]
 
     print("\nG2 Review Miner — GTM AI Toolkit Experiment 002")
     print("=" * 52)

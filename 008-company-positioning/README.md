@@ -23,7 +23,7 @@ pip install -r requirements.txt
 `ANTHROPIC_API_KEY` is loaded from the `.env` file at the root of this repo. Copy `.env.example` to `.env` and fill in your key. You can also export it directly:
 
 ```bash
-export ANTHROPIC_API_KEY=sk-ant-...
+export ANTHROPIC_API_KEY=sk-ant-YOUR_KEY_HERE
 ```
 
 ## Run

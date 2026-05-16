@@ -40,11 +40,7 @@ FIRECRAWL_API_KEY=...
 ## Usage
 
 ```bash
-# Analyze a competitor
-python g2_miner.py https://www.g2.com/products/notion/reviews
-
-# Default (runs Notion as a test)
-python g2_miner.py
+python g2_miner.py https://www.g2.com/products/<competitor>/reviews
 ```
 
 Output is saved to `outputs/<competitor-name>.md`.

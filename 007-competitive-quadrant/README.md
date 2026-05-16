@@ -8,7 +8,7 @@ Reads competitive intelligence `.md` files, asks Claude to derive the two most d
 2. Groups them by company (filename prefix before the first `-`)
 3. Concatenates each company's files and sends them to Claude with a PMM analysis prompt
 4. Claude derives two data-driven axes — not generic "vision vs execution" ones
-5. Plots a clean quadrant chart as `quadrant.png`
+5. Plots three quadrant charts as `quadrant-1.png`, `quadrant-2.png`, `quadrant-3.png`
 6. Saves `axes-rationale.md` with axis definitions and per-company placement rationale
 
 ## Setup
@@ -23,12 +23,12 @@ Requires an `ANTHROPIC_API_KEY`. Copy `.env.example` to `.env` at the root of th
 
 **With your real data:**
 ```bash
-python3 quadrant.py ./inputs/
+python3 quadrant.py --inputs ./inputs/
 ```
 
 **With the included synthetic data** (5 fake GTM-AI companies — no real data needed):
 ```bash
-python3 quadrant.py ./synthetic/
+python3 quadrant.py --inputs ./synthetic/
 ```
 
 ## Input file format
@@ -47,7 +47,7 @@ inputs/
 
 | File | Description |
 |---|---|
-| `quadrant.png` | 300 dpi quadrant chart |
+| `quadrant-1.png`, `quadrant-2.png`, `quadrant-3.png` | 300 dpi quadrant charts (three axis-pair variants) |
 | `axes-rationale.md` | Axis definitions + per-company rationale |
 
 ## File structure
