@@ -2,7 +2,7 @@
 """
 Competitive Quadrant Generator
 Reads competitive intelligence .md files, derives 3 distinct axis pairs
-via a single Claude API call, and plots individual + combined quadrant charts.
+via a single Claude API call, and plots individual quadrant charts.
 """
 
 import argparse
@@ -18,6 +18,12 @@ import anthropic
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+try:
+    from adjustText import adjust_text as _adjust_text
+    _HAS_ADJUST_TEXT = True
+except ImportError:
+    _HAS_ADJUST_TEXT = False
 
 # ---------------------------------------------------------------------------
 # Config
@@ -49,11 +55,6 @@ class FontSizes:
 FONTS_DEFAULT = FontSizes(
     title=13, axis_label=10, company=8.5,
     annotation=6.5, tick=8, dot_size=150,
-)
-
-FONTS_LINKEDIN = FontSizes(
-    title=16, axis_label=12, company=14,
-    annotation=9, tick=10, dot_size=220,
 )
 
 
@@ -145,6 +146,10 @@ def call_claude(api_key: str, prompt: str) -> dict:
 # Plotting — single quadrant
 # ---------------------------------------------------------------------------
 
+def _wrap_desc(text: str, width: int = 55) -> str:
+    return "\n".join(textwrap.wrap(text, width=width))
+
+
 def _draw_quadrant(ax, quadrant: dict, fonts: FontSizes = FONTS_DEFAULT):
     """Draw one quadrant onto an existing Axes object."""
     ax.set_facecolor("white")
@@ -163,63 +168,70 @@ def _draw_quadrant(ax, quadrant: dict, fonts: FontSizes = FONTS_DEFAULT):
     x_axis = quadrant["x_axis"]
     y_axis = quadrant["y_axis"]
 
-    # Low/high annotations anchored in axes-fraction coords (0–1),
-    # so they never overflow the plot boundary regardless of font size.
-    kw = dict(color="#9CA3AF", style="italic", fontsize=fonts.annotation,
-              transform=ax.transAxes, clip_on=True)
-    ax.text(0.01, 0.03, f"← {x_axis['low']}",  ha="left",  va="bottom", **kw)
-    ax.text(0.99, 0.03, f"{x_axis['high']} →",  ha="right", va="bottom", **kw)
-    ax.text(0.01, 0.97, f"↑ {y_axis['high']}",  ha="left",  va="top",    **kw)
-    ax.text(0.01, 0.13, f"↓ {y_axis['low']}",   ha="left",  va="bottom", **kw)
+    # Directional descriptors placed OUTSIDE the axes spines (clip_on=False).
+    # (0,0) = bottom-left spine corner; (1,1) = top-right spine corner.
+    # Values outside [0,1] land outside the data area.
+    desc_kw = dict(
+        color="#9CA3AF", style="italic", fontsize=fonts.annotation,
+        transform=ax.transAxes, clip_on=False, linespacing=1.3,
+    )
+    # y-axis: high well above the top spine (above the title), low below x-label.
+    # y=1.22 in axes-fraction places the descriptor above the title at pad=10.
+    ax.text(0.01, 1.22, f"↑ {_wrap_desc(y_axis['high'], 55)}",
+            ha="left", va="bottom", **desc_kw)
+    ax.text(0.01, -0.24, f"↓ {_wrap_desc(y_axis['low'], 55)}",
+            ha="left", va="top", **desc_kw)
+    # x-axis: low bottom-left, high bottom-right (below tick labels + x-label)
+    ax.text(0.0, -0.12, f"← {_wrap_desc(x_axis['low'], 38)}",
+            ha="left", va="top", **desc_kw)
+    ax.text(1.0, -0.12, f"{_wrap_desc(x_axis['high'], 38)} →",
+            ha="right", va="top", **desc_kw)
 
     ax.set_xlabel(x_axis["label"], fontsize=fonts.axis_label,
-                  fontweight="bold", color="#111827", labelpad=10)
+                  fontweight="bold", color="#111827", labelpad=8)
     ax.set_ylabel(y_axis["label"], fontsize=fonts.axis_label,
-                  fontweight="bold", color="#111827", labelpad=10)
+                  fontweight="bold", color="#111827", labelpad=8)
 
+    # Company dots — collect label Text objects for adjustText de-collision
+    xs = [co["x"] for co in quadrant["companies"]]
+    ys = [co["y"] for co in quadrant["companies"]]
+    label_texts = []
     for i, co in enumerate(quadrant["companies"]):
         color = COLORS[i % len(COLORS)]
         ax.scatter(co["x"], co["y"], s=fonts.dot_size, color=color, zorder=5,
                    edgecolors="white", linewidths=1.5)
-        x_off = 0.25 if co["x"] < 8.5 else -0.25
-        ha = "left" if co["x"] < 8.5 else "right"
-        ax.text(co["x"] + x_off, co["y"] + 0.35, co["name"],
-                fontsize=fonts.company, fontweight="semibold", color=color,
-                ha=ha, va="bottom", zorder=6)
+        t = ax.text(
+            co["x"] + 0.18, co["y"] + 0.30, co["name"],
+            fontsize=fonts.company, fontweight="semibold", color=color,
+            ha="left", va="bottom", zorder=6,
+        )
+        label_texts.append(t)
 
-    # Wrap long titles so they never overflow the axes width
+    if _HAS_ADJUST_TEXT and label_texts:
+        try:
+            _adjust_text(
+                label_texts, x=xs, y=ys, ax=ax,
+                expand=(1.5, 1.5),
+                force_text=(0.4, 0.4),
+                force_static=(0.3, 0.3),
+                arrowstyle="-", color="#9CA3AF", linewidth=0.5,
+            )
+        except Exception:
+            pass  # leave labels at initial offset if adjustText call fails
+
     wrapped_title = "\n".join(textwrap.wrap(quadrant["title"], width=48))
     ax.set_title(wrapped_title, fontsize=fonts.title,
-                 fontweight="bold", color="#111827", pad=14)
+                 fontweight="bold", color="#111827", pad=10)
 
 
 def plot_individual(quadrant: dict, output_path: Path):
     fig, ax = plt.subplots(figsize=(11, 9), facecolor="white")
     _draw_quadrant(ax, quadrant, fonts=FONTS_DEFAULT)
-    plt.tight_layout()
-    fig.savefig(output_path, dpi=300, bbox_inches="tight", facecolor="white")
-    plt.close(fig)
-    print(f"Saved: {output_path}")
-
-
-def plot_combined(quadrants: list[dict], output_path: Path):
-    """LinkedIn portrait format: 1200x1800px, 3 quadrants stacked vertically."""
-    # 8x12in @ 150dpi = exactly 1200x1800px
-    fig, axes = plt.subplots(3, 1, figsize=(8, 12), facecolor="white")
-    fig.patch.set_facecolor("white")
-
-    for ax, quadrant in zip(axes, quadrants):
-        _draw_quadrant(ax, quadrant, fonts=FONTS_LINKEDIN)
-
-    fig.suptitle("Competitive Landscape — GTM AI Lab",
-                 fontsize=18, fontweight="bold", color="#111827")
-
-    # tight_layout auto-sizes margins so rotated y-axis labels aren't clipped.
-    # rect=[left, bottom, right, top] — left=0.04 adds extra breathing room for
-    # long y-axis labels; top=0.96 reserves space for the suptitle.
-    fig.tight_layout(rect=[0.04, 0, 1, 0.96], h_pad=4.0)
-
-    fig.savefig(output_path, dpi=150, facecolor="white")
+    # Explicit margins give descriptors room; bbox_inches="tight" captures
+    # everything outside the axes box that has clip_on=False.
+    fig.subplots_adjust(left=0.12, right=0.88, top=0.80, bottom=0.30)
+    fig.savefig(output_path, dpi=300, bbox_inches="tight",
+                pad_inches=0.3, facecolor="white")
     plt.close(fig)
     print(f"Saved: {output_path}")
 
@@ -302,7 +314,6 @@ def main():
     for i, q in enumerate(quadrants, 1):
         plot_individual(q, output_dir / f"quadrant-{i}.png")
 
-    plot_combined(quadrants, output_dir / "quadrant-combined.png")
     write_rationale(quadrants, output_dir / "axes-rationale.md")
 
     print("\nDone.")

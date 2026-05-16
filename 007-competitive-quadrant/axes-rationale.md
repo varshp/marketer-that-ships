@@ -1,94 +1,94 @@
 # Competitive Quadrant — Axes Rationale
 
-## Quadrant 1: AI Monetization Maturity vs. Revenue Concentration Risk
+## Quadrant 1: Signal Origin vs. Human Dependency in the Revenue Workflow
 
-### X-axis: AI Revenue Contribution
-- **Low:** AI is narrative only; revenue is substantially all legacy product
-- **High:** AI features are monetized via distinct pricing models with measurable revenue impact
+### X-axis: Primary Signal Source
+- **Low:** CRM / sales-reported data (rep-entered, retrospective)
+- **High:** Product telemetry / real-time behavioural signals (system-observed, in-the-moment)
 
-### Y-axis: Product Revenue Diversification
-- **Low:** Single flagship product generates majority of revenue
-- **High:** Revenue spread across multiple distinct product lines
+### Y-axis: Human Involvement Required to Act
+- **Low:** Fully autonomous — AI executes without human review
+- **High:** Human-in-the-loop — experts configure, review, or approve every action
 
-**Why this view:** This view separates companies making real AI monetization bets from those using AI as positioning veneer, while simultaneously exposing which companies face existential single-product concentration risk — a combination that reveals financial fragility beneath marketing narratives.
+**Why this view:** This view separates companies by where their intelligence originates (product behaviour vs. sales-reported data) and how much human effort is needed to turn that intelligence into action — revealing which platforms are truly autonomous versus advisory.
 
 ### Company Placements
 
-**Asana** (x=1.5, y=1.2)
-AI Teammates and AI Studio are named products but revenue remains 'substantially all' from seat-based core subscriptions with zero diversification beyond the single platform.
+**Acme WorkOS** (x=3.0, y=6.5)
+Signals come from CRM records, calls, and billing data rather than product telemetry, and reps/managers actively use call summaries and pipeline stages — humans stay in the loop throughout.
 
-**HubSpot** (x=3.5, y=7.5)
-Breeze Agents are early-stage with recent acquisitions powering them, but consumption-based AI pricing is live; meanwhile revenue spans Marketing, Sales, Service, CMS, Commerce, and Operations Hubs.
+**Bridge AI** (x=9.0, y=3.0)
+Core value proposition is built entirely on product-usage telemetry (feature activation, session frequency), and the signal-to-sequence engine auto-generates and times outreach with SDRs only reviewing and approving.
 
-**Monday** (x=2.5, y=3.5)
-AI agents and monday vibe are new but not yet monetized distinctly, and the filing explicitly states majority of revenue still comes from monday work management despite CRM and dev expansions.
+**Cortex GTM** (x=4.0, y=9.0)
+Ingests data from 120+ tools that are predominantly CRM/MAP sources, and every enterprise contract includes a dedicated revenue architect who configures models and presents results — maximum human dependency.
 
-**Notion** (x=2.0, y=2.0)
-Custom Agents and AI workflows are being deployed via FDEs but no consumption or distinct AI pricing is evidenced; the product is a single bundled workspace with no separately reported revenue lines.
+**Drift Engage** (x=8.5, y=1.5)
+Operates on real-time website behavioural signals (page visits, repeat pricing-page views) and the AI agent initiates conversations within seconds with no human SDR involvement at the moment of engagement.
 
-**Salesforce** (x=6.0, y=9.0)
-Agentforce and Data 360 have explicit consumption-based pricing models (though admittedly unproven), and revenue spans five rebranded product families plus Informatica, MuleSoft, Tableau, and Slack.
+**Echo Revenue** (x=2.5, y=7.0)
+Signals are derived from content usage and email/document engagement (retrospective, sales-side data), and the AI coaching recommendations still require reps and enablement teams to act on and implement them.
 
 ---
 
-## Quadrant 2: GTM Model Maturity vs. Channel Dependency
+## Quadrant 2: Buyer Lifecycle Intervention Point vs. Implementation Complexity
 
-### X-axis: Enterprise Sales Infrastructure
-- **Low:** Still building enterprise sales playbook; founding teams, undefined motions
-- **High:** Mature, codified enterprise sales machine with established processes and global coverage
+### X-axis: Lifecycle Intervention Point
+- **Low:** Top-of-funnel — engages prospects before pipeline creation (anonymous visitors, early PQLs)
+- **High:** Mid-to-late funnel — optimises active deals, forecasting, and post-sale revenue operations
 
-### Y-axis: Partner/Channel Revenue Influence
-- **Low:** Predominantly direct sales and self-serve; minimal partner revenue attribution
-- **High:** Partners account for large share of revenue and customer acquisition
+### Y-axis: Implementation Complexity
+- **Low:** Lightweight setup — no-code, self-serve, minimal prerequisites
+- **High:** Heavy setup — requires mature data infrastructure, multi-month implementation, or dedicated professional services
 
-**Why this view:** This view exposes a critical operational dimension: which companies have the enterprise GTM machinery to actually deliver on their AI and platform narratives, and which are dangerously dependent on partners they don't control — revealing execution readiness gaps invisible in product positioning.
+**Why this view:** This view reveals where each platform intervenes in the buyer journey and the cost of getting started — showing that companies solving later-stage problems tend to demand heavier implementations, while the early-funnel players emphasise speed, with Bridge as a notable exception.
 
 ### Company Placements
 
-**Asana** (x=6.0, y=4.5)
-Established enterprise sales org with 85% Fortune 100 penetration and elevated channel partner emphasis across 50+ countries, though partner revenue share is not quantified as dominant.
+**Acme WorkOS** (x=7.0, y=5.5)
+Focuses on active pipeline management, CRM-to-billing reconciliation, and deal coaching (mid-to-late funnel), with setup that takes weeks but doesn't require external professional services.
 
-**HubSpot** (x=7.5, y=9.0)
-Mature global sales organization now at 8,882 employees with a codified enterprise motion, but 49% of revenue is partner-influenced — an extraordinary channel dependency acknowledged as a risk.
+**Bridge AI** (x=3.0, y=6.0)
+Intervenes at the product-qualified lead stage before formal pipeline creation (early funnel), but requires clean Amplitude/Mixpanel/Segment instrumentation as a hard prerequisite, adding real complexity.
 
-**Monday** (x=5.5, y=3.0)
-Actively transitioning from PLG to sales-led with new CRO and global office expansion, but partner commission expenses are declining and direct sales dominates the narrative.
+**Cortex GTM** (x=9.0, y=9.5)
+Sits squarely at the forecasting and board-reporting stage of late-funnel revenue operations, and multi-CRM unification projects run 4–6 months with $120K+ ARR and a dedicated revenue architect.
 
-**Notion** (x=1.5, y=2.0)
-Explicitly hiring 'founding sales teams' across 13 countries with undefined sales motions and just beginning to build a partner certification program targeting ~20 partner SEs by end of 2026.
+**Drift Engage** (x=1.5, y=3.0)
+Engages anonymous website visitors at the earliest possible funnel stage, with a no-code audience targeting builder that marketing can configure without engineering tickets.
 
-**Salesforce** (x=9.5, y=7.0)
-The most mature enterprise sales organization in the set with 83,334 employees and deep global coverage, plus explicit strategy to shift professional services to third-party partners.
+**Echo Revenue** (x=7.5, y=7.5)
+Optimises active deal execution and rep performance in mid-to-late funnel, but requires extensive content tagging, taxonomy work, and a dataset of 200+ closed deals before the AI delivers meaningful value.
 
 ---
 
-## Quadrant 3: Data Infrastructure Ownership vs. Agentic AI Ambition
+## Quadrant 3: AI Value Delivery Model vs. Target Segment Ceiling
 
-### X-axis: Proprietary Data Layer Depth
-- **Low:** No proprietary data infrastructure; relies on third-party models and integrations
-- **High:** Owns a differentiated data engine (graph, lakehouse, enrichment) positioned as AI context layer
+### X-axis: AI Value Delivery
+- **Low:** Insight-oriented — AI analyses, explains, and recommends (human decides)
+- **High:** Action-oriented — AI drafts, executes, and automates workflows end-to-end
 
-### Y-axis: Autonomous Agent Scope
-- **Low:** AI positioned as assistant/copilot augmenting human workflows
-- **High:** AI agents framed as autonomous digital labor replacing or executing entire workflows
+### Y-axis: Target Segment Ceiling
+- **Low:** Growth-stage / mid-market — serves teams of 50–500, usage-based or accessible pricing
+- **High:** Enterprise / post-acquisition — serves complex orgs with $120K+ contracts, multi-region, multi-product
 
-**Why this view:** This view reveals whether companies have the data foundation to actually deliver on agentic AI promises or are building agents on borrowed context — exposing the gap between autonomous AI marketing claims and the proprietary infrastructure required to make agents accurate, governed, and trustworthy at enterprise scale.
+**Why this view:** This view exposes a strategic tension: platforms serving enterprises tend to keep AI in an advisory role (explainability and trust matter to CFOs and boards), while platforms targeting growth-stage teams let AI act autonomously — revealing fundamentally different philosophies about where humans should remain in control.
 
 ### Company Placements
 
-**Asana** (x=7.0, y=7.0)
-The Work Graph is explicitly repositioned as AI institutional memory and context infrastructure, and AI Teammates are framed as autonomous agents handling ambiguous work — but a June 2025 MCP data exposure undermines the trust claim.
+**Acme WorkOS** (x=6.0, y=4.0)
+AI auto-generates call summaries and posts them to CRM (action-oriented), but transparent usage-based pricing and mid-market support tiers place it firmly in the growth-to-mid-market segment.
 
-**HubSpot** (x=5.0, y=7.5)
-Smart CRM and data enrichment are elevated as strategic battlegrounds with Dashworks acquisition adding knowledge management, and Breeze Agents are positioned as autonomous teammates — but data infrastructure relies partly on third-party models (OpenAI etc.).
+**Bridge AI** (x=8.5, y=2.5)
+AI writes personalised outreach sequences and times sends autonomously (heavily action-oriented), targeting growth-stage PLG companies of 50–500 employees with no enterprise positioning.
 
-**Monday** (x=5.5, y=8.0)
-mondayDB 3.0 represents a proprietary data infrastructure bet and the 'unlimited workforce' agent narrative is the most aggressive autonomous framing, but AI model provenance and accuracy guardrails are entirely unaddressed.
+**Cortex GTM** (x=2.5, y=9.5)
+AI provides explainable forecast adjustments and audit trails for boards (insight-oriented, human-decided), exclusively targeting Series C+ enterprises and CROs/CFOs with $120K+ contracts.
 
-**Notion** (x=4.0, y=5.5)
-Agentic search across third-party apps and Custom Agents with MCP are operationalized via FDEs, but there is no named proprietary data engine — Notion's data layer is the workspace content graph, which lacks the structured enrichment or governance positioning of competitors.
+**Drift Engage** (x=8.0, y=4.5)
+AI autonomously initiates and conducts real-time conversations and books meetings (action-oriented), targeting demand gen teams at B2B SaaS companies though ROI drops below 10K monthly visitors, limiting enterprise pull.
 
-**Salesforce** (x=9.5, y=9.5)
-Data 360 is a new named hyperscale data engine, the $6B Informatica acquisition dramatically deepens data governance and connectivity, and Agentforce explicitly positions agents as 'always-on digital labor' across every product line — the most fully committed position on both axes.
+**Echo Revenue** (x=4.0, y=7.0)
+AI analyses won/lost deals and recommends next-best actions and content, but humans must follow through (insight-oriented), targeting large distributed sales orgs with 100+ reps — a distinctly enterprise use case.
 
 ---

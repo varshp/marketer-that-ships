@@ -1,3 +1,4 @@
 anthropic>=0.96.0
+adjustText>=1.0
 matplotlib>=3.10.9
 python-dotenv>=1.2.2
