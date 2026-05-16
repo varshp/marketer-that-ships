@@ -6,8 +6,8 @@ Takes a YouTube URL, extracts the transcript, and uses Claude to generate
 a structured summary for B2B marketers: TL;DR, key takeaways, and one action.
 
 Usage:
-    python summarize.py https://www.youtube.com/watch?v=XXXXXX
-    python summarize.py  (will prompt for URL)
+    python3 summarize.py https://www.youtube.com/watch?v=XXXXXX
+    python3 summarize.py  (will prompt for URL)
 """
 
 import os
